@@ -2,7 +2,7 @@
 
 
 # install the package from .tgz
-install.packages("/Users/shah/CODE_BOOK_4/C++/FinalProject/CallSpreadBarrierPrice_0.1.0.tgz",
+install.packages("../CallSpreadBarrierPrice_0.1.0.tgz",
                  repos = NULL,
                  type = "source")
 
