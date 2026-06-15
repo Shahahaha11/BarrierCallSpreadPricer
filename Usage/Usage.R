@@ -3,7 +3,7 @@
 
 # install local package
 install.packages(
-    "/Users/shah/CODE_BOOK_4/C++/FinalProject/CallSpreadBarrierPrice_0.1.0.tgz",
+    "../CallSpreadBarrierPrice_0.1.0.tgz",
     repos = NULL,
     type = "source"
 )
@@ -25,7 +25,7 @@ price <- CallSpreadBarrierSpread(
     r = 0.05,
     d = 0.0,
     number_of_paths = 1000000,
-    number_of_dates = 1,
+    number_of_dates = 126,
     is_double_barrier = 0,
     is_knock_out = 1,
     barrier1 = 140.0,
