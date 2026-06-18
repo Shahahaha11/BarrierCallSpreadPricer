@@ -12,8 +12,9 @@ public:
     unsigned long time_index;
 
     // constructor, 0UL stands for 'zero unsigned long'
+
     CashFlow(unsigned long time_index_ = 0UL, double amount_ = 0.0)
-        : time_index(time_index_), amount(amount_) {};
+        : amount(amount_), time_index(time_index_) {};
 };
 
 class PathDependent

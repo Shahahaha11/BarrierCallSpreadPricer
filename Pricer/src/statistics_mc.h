@@ -12,6 +12,7 @@ public:
     virtual StatisticsMC *clone() const = 0;
     virtual ~StatisticsMC() {};
     virtual void reset() = 0;
+    virtual bool has_converged() const { return false; }
 
 private:
 };

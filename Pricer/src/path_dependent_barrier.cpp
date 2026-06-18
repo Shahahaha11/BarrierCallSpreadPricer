@@ -18,13 +18,15 @@ is_knock_out = is_knock_out_ ;
 PathDependentBarrier::PathDependentBarrier(const MJArray &look_at_times_,
     double delivery_time_,
     const PayOffBridge &the_payoff_,
-    double barrierA, int is_double_barrier, int is_knock_out_)
+    double barrierA, int is_double_barrier, int is_knock_out_,
+    int barrier_direction_)
     : PathDependent(look_at_times_),
     delivery_time(delivery_time_),
     the_payoff(the_payoff_),
     number_of_times(look_at_times_.size()),
     barrier1(barrierA),
-    barrier2(0.0)
+    barrier2(0.0),
+    barrier_direction(barrier_direction_)
 {
 is_double = is_double_barrier;
 is_knock_out = is_knock_out_ ;
@@ -53,7 +55,10 @@ unsigned long PathDependentBarrier::cash_flows(const MJArray &spot_values, std::
         hit = spot_values.min() <= barrier1 || spot_values.max() >= barrier2;
     }
     else {
-        hit = spot_values.max() >= barrier1;
+        if(barrier_direction == 1)
+            hit = spot_values.max() >= barrier1;
+        else
+            hit = spot_values.min() <= barrier1;
     }
     generated_flows[0].time_index = 0UL;
     

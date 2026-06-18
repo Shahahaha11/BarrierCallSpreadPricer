@@ -9,12 +9,14 @@ public :
 PathDependentBarrier(const MJArray &look_at_times_,
     double delivery_time,
     const PayOffBridge &the_payoff_,
-    double barrierA, double barrierB , int is_double_barrier, int is_knock_out);
+    double barrierA, double barrierB ,
+    int is_double_barrier, int is_knock_out);
 
 PathDependentBarrier(const MJArray &look_at_times_,
     double delivery_time,
     const PayOffBridge &the_payoff_, double barrierA, 
-    int is_double_barrier, int is_knock_out);
+    int is_double_barrier, int is_knock_out,
+    int barrier_direction);
     
     virtual unsigned long max_number_of_cash_flows() const;
     virtual MJArray possible_cash_flow_times() const;
@@ -31,6 +33,7 @@ private :
     double barrier2;
     int is_double;
     int is_knock_out;
+    int barrier_direction;
 };
 
 #endif
