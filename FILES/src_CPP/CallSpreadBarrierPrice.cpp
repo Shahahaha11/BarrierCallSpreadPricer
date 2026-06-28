@@ -1,4 +1,3 @@
-#include <Rcpp.h>
 #include <iostream>
 #include "park_miller.h"
 #include "statistics_mc.h"
@@ -10,18 +9,30 @@
 #include "exotic_bs_engine.h"
 #include "statistics_mse.h"
 #include "exotic_bs_engine_w_stop.h"
+#include <vector>
 
-using namespace std;
-using namespace Rcpp;
-//[[Rcpp::export]]
-double CallRatioSpreadBarrier
-(
-        int is_bull, double expiry, double strike1, double strike2, double spot, double vol,
-        double r, double d, int number_of_paths, int number_of_dates, int is_double_barrier,
-        int is_knock_out, double barrier1, int barrier_direction,  double barrier2, double tolerance,
-        int ratio
-)
+
+int main() 
 {
+    int is_bull = 1; 
+    double expiry = 0.5;
+    double strike1 = 105.0;
+    double strike2 = 120.0;
+    double spot = 110.0;
+    double vol = 0.23;
+    double r = 0.05;
+    double d = 0.0;
+    int number_of_paths = 100000;
+    int number_of_dates = 126;
+    int is_double_barrier = 0;
+    int is_knock_out = 1;
+    double barrier1 = 90.0;
+    int barrier_direction = 0;
+    double barrier2 = 0.0;
+    double tolerance = 0.002;
+    int ratio = 12;
+
+
     PayOffCallRatioSpread the_payoff2(strike1, strike2, is_bull, ratio);
 
     ParametersConstant vol_param(vol);
@@ -49,5 +60,7 @@ double CallRatioSpreadBarrier
     the_engine1.do_simulation(gathererB, number_of_paths);
 
     std::vector<std::vector<double>> results1 = gathererB.get_results_so_far();
-    return results1.back()[0];
+    std::cout << results1.back()[0] << "\n";
+    return 0;
+    
 }
