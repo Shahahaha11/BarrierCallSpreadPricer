@@ -9,7 +9,6 @@ PayOffCallRatioSpread::PayOffCallRatioSpread(double strikeA, double strikeB, int
 // unedited 
 // assuming strike1 is the lower strike than strike2.
 double PayOffCallRatioSpread::operator()(double spot) const{
-    int x = 0;
     // DESIGN CHOICE (INPUT)
     // int first = ratio/10; // "ratio" is an int. 12 is default. 
     // for bull first digit 1 refers to one long positions, 2 refers to number of short positions.

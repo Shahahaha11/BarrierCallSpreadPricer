@@ -21,14 +21,7 @@ double CallRatioSpreadBarrier
         int is_knock_out, double barrier1, int barrier_direction,  double barrier2, double tolerance,
         int ratio
 )
-// all you need to do is have a three leg version of PathDependentOption
-// or make a portfolio class that will hold something as common as a option type. 
 {
-
-    PayOffCallSpread the_payoff1(strike1, strike2, is_bull);
-// watching the above line work in this program, I would like to make 
-// another parallel derived class named PayOffCallRatioSpread
-// NEW BELOW 
     PayOffCallRatioSpread the_payoff2(strike1, strike2, is_bull, ratio);
 
     ParametersConstant vol_param(vol);
@@ -42,8 +35,8 @@ double CallRatioSpreadBarrier
 
     PathDependentBarrier the_option =
         is_double_barrier
-    ? PathDependentBarrier(look_at_times, expiry, the_payoff1,barrier1, barrier2, is_double_barrier, is_knock_out)
-    : PathDependentBarrier(look_at_times, expiry, the_payoff1, barrier1, is_double_barrier, is_knock_out, barrier_direction);
+    ? PathDependentBarrier(look_at_times, expiry, the_payoff2,barrier1, barrier2, is_knock_out)
+    : PathDependentBarrier(look_at_times, expiry, the_payoff2, barrier1, is_knock_out, barrier_direction);
 
     // StatisticsMean gathererA;
     // ConvergenceTable gatherer2A(gathererA);
@@ -55,8 +48,6 @@ double CallRatioSpreadBarrier
     ExoticBSEngineWStop the_engine1(the_option, r_param, d_param, vol_param, generator1, spot);
     the_engine1.do_simulation(gathererB, number_of_paths);
 
-    vector<vector<double>> results1 = gathererB.get_results_so_far();
-
+    std::vector<std::vector<double>> results1 = gathererB.get_results_so_far();
     return results1.back()[0];
-    
 }
