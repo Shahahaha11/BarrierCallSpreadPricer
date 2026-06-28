@@ -5,6 +5,7 @@
 #include "convergence_table.h"
 #include "antithetic.h"
 #include "payoff_call_spread.h"
+#include "payoff_call_ratio_spread.h"
 #include "path_dependent_barrier.h"
 #include "exotic_bs_engine.h"
 #include "statistics_mse.h"
@@ -13,15 +14,15 @@
 using namespace std;
 using namespace Rcpp;
 //[[Rcpp::export]]
-double CallSpreadBarrierSpread
+double CallRatioSpreadBarrier
 (
         int is_bull, double expiry, double strike1, double strike2, double spot, double vol,
         double r, double d, int number_of_paths, int number_of_dates, int is_double_barrier,
-        int is_knock_out, double barrier1, int barrier_direction,  double barrier2, double tolerance
+        int is_knock_out, double barrier1, int barrier_direction,  double barrier2, double tolerance,
+        int ratio
 )
 {
-
-    PayOffCallSpread the_payoff1(strike1, strike2, is_bull);
+    PayOffCallRatioSpread the_payoff2(strike1, strike2, is_bull, ratio);
 
     ParametersConstant vol_param(vol);
     ParametersConstant r_param(r);
@@ -34,8 +35,8 @@ double CallSpreadBarrierSpread
 
     PathDependentBarrier the_option =
         is_double_barrier
-    ? PathDependentBarrier(look_at_times, expiry, the_payoff1,barrier1, barrier2, is_double_barrier, is_knock_out)
-    : PathDependentBarrier(look_at_times, expiry, the_payoff1, barrier1, is_double_barrier, is_knock_out, barrier_direction);
+    ? PathDependentBarrier(look_at_times, expiry, the_payoff2,barrier1, barrier2, is_knock_out)
+    : PathDependentBarrier(look_at_times, expiry, the_payoff2, barrier1, is_knock_out, barrier_direction);
 
     // StatisticsMean gathererA;
     // ConvergenceTable gatherer2A(gathererA);
@@ -47,8 +48,6 @@ double CallSpreadBarrierSpread
     ExoticBSEngineWStop the_engine1(the_option, r_param, d_param, vol_param, generator1, spot);
     the_engine1.do_simulation(gathererB, number_of_paths);
 
-    vector<vector<double>> results1 = gathererB.get_results_so_far();
-
+    std::vector<std::vector<double>> results1 = gathererB.get_results_so_far();
     return results1.back()[0];
-    
 }

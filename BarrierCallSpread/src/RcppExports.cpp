@@ -10,9 +10,9 @@ Rcpp::Rostream<true>&  Rcpp::Rcout = Rcpp::Rcpp_cout_get();
 Rcpp::Rostream<false>& Rcpp::Rcerr = Rcpp::Rcpp_cerr_get();
 #endif
 
-// CallSpreadBarrierSpread
-double CallSpreadBarrierSpread(int is_bull, double expiry, double strike1, double strike2, double spot, double vol, double r, double d, int number_of_paths, int number_of_dates, int is_double_barrier, int is_knock_out, double barrier1, int barrier_direction, double barrier2, double tolerance);
-RcppExport SEXP _CallSpreadBarrierPrice_CallSpreadBarrierSpread(SEXP is_bullSEXP, SEXP expirySEXP, SEXP strike1SEXP, SEXP strike2SEXP, SEXP spotSEXP, SEXP volSEXP, SEXP rSEXP, SEXP dSEXP, SEXP number_of_pathsSEXP, SEXP number_of_datesSEXP, SEXP is_double_barrierSEXP, SEXP is_knock_outSEXP, SEXP barrier1SEXP, SEXP barrier_directionSEXP, SEXP barrier2SEXP, SEXP toleranceSEXP) {
+// CallRatioSpreadBarrier
+double CallRatioSpreadBarrier(int is_bull, double expiry, double strike1, double strike2, double spot, double vol, double r, double d, int number_of_paths, int number_of_dates, int is_double_barrier, int is_knock_out, double barrier1, int barrier_direction, double barrier2, double tolerance, int ratio);
+RcppExport SEXP _CallSpreadBarrierPrice_CallRatioSpreadBarrier(SEXP is_bullSEXP, SEXP expirySEXP, SEXP strike1SEXP, SEXP strike2SEXP, SEXP spotSEXP, SEXP volSEXP, SEXP rSEXP, SEXP dSEXP, SEXP number_of_pathsSEXP, SEXP number_of_datesSEXP, SEXP is_double_barrierSEXP, SEXP is_knock_outSEXP, SEXP barrier1SEXP, SEXP barrier_directionSEXP, SEXP barrier2SEXP, SEXP toleranceSEXP, SEXP ratioSEXP) {
 BEGIN_RCPP
     Rcpp::RObject rcpp_result_gen;
     Rcpp::RNGScope rcpp_rngScope_gen;
@@ -32,13 +32,14 @@ BEGIN_RCPP
     Rcpp::traits::input_parameter< int >::type barrier_direction(barrier_directionSEXP);
     Rcpp::traits::input_parameter< double >::type barrier2(barrier2SEXP);
     Rcpp::traits::input_parameter< double >::type tolerance(toleranceSEXP);
-    rcpp_result_gen = Rcpp::wrap(CallSpreadBarrierSpread(is_bull, expiry, strike1, strike2, spot, vol, r, d, number_of_paths, number_of_dates, is_double_barrier, is_knock_out, barrier1, barrier_direction, barrier2, tolerance));
+    Rcpp::traits::input_parameter< int >::type ratio(ratioSEXP);
+    rcpp_result_gen = Rcpp::wrap(CallRatioSpreadBarrier(is_bull, expiry, strike1, strike2, spot, vol, r, d, number_of_paths, number_of_dates, is_double_barrier, is_knock_out, barrier1, barrier_direction, barrier2, tolerance, ratio));
     return rcpp_result_gen;
 END_RCPP
 }
 
 static const R_CallMethodDef CallEntries[] = {
-    {"_CallSpreadBarrierPrice_CallSpreadBarrierSpread", (DL_FUNC) &_CallSpreadBarrierPrice_CallSpreadBarrierSpread, 16},
+    {"_CallSpreadBarrierPrice_CallRatioSpreadBarrier", (DL_FUNC) &_CallSpreadBarrierPrice_CallRatioSpreadBarrier, 17},
     {NULL, NULL, 0}
 };
 

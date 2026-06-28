@@ -3,7 +3,7 @@
 PathDependentBarrier::PathDependentBarrier(const MJArray &look_at_times_,
     double delivery_time_,
     const PayOffBridge &the_payoff_,
-    double barrierA, double barrierB , int is_double_barrier, int is_knock_out_)
+    double barrierA, double barrierB , int is_knock_out_)
     : PathDependent(look_at_times_),
     delivery_time(delivery_time_),
     the_payoff(the_payoff_),
@@ -11,14 +11,14 @@ PathDependentBarrier::PathDependentBarrier(const MJArray &look_at_times_,
     barrier1(barrierA),
     barrier2(barrierB)
 {
-is_double = is_double_barrier;
+is_double = 1;
 is_knock_out = is_knock_out_ ;
 }
 
 PathDependentBarrier::PathDependentBarrier(const MJArray &look_at_times_,
     double delivery_time_,
     const PayOffBridge &the_payoff_,
-    double barrierA, int is_double_barrier, int is_knock_out_,
+    double barrierA, int is_knock_out_,
     int barrier_direction_)
     : PathDependent(look_at_times_),
     delivery_time(delivery_time_),
@@ -28,7 +28,7 @@ PathDependentBarrier::PathDependentBarrier(const MJArray &look_at_times_,
     barrier2(0.0),
     barrier_direction(barrier_direction_)
 {
-is_double = is_double_barrier;
+is_double = 0;
 is_knock_out = is_knock_out_ ;
 }
 
